@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { ObjectId } = mongoose.Schema
 
 const productSchema = new mongoose.Schema({
     productName: {
@@ -8,7 +7,12 @@ const productSchema = new mongoose.Schema({
     },
     productType: {
         type: String,
-        required: true //make it enum
+        enum: ['MALE_CATEGORY', 'FEMALE_CATEGORY', 'UNISEX_CATEGORY'],
+        required: true
+    },
+    productDescription: {
+        type: String,
+        required: true
     },
     originalPrice: {
         type: Number,
@@ -21,7 +25,7 @@ const productSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         required: true
-    },
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model('Products', productSchema)
