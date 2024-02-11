@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String, 
         require: true
-    },
+    },  
     wishlist: [{
         productId: {
             type: String
