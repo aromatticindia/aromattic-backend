@@ -23,14 +23,6 @@ const userSchema = new mongoose.Schema({
 	},
     wishlist: [{ type: ObjectId, ref: 'Products' }],
     orderHistory: [{ type: ObjectId, ref: 'Orders' }],
-    token: {
-		type: String,
-	},
-	passResetKey: { type: String },
-	passKeyExpires: { type: Number },
-	verificationKey: { type: String },
-	verificationKeyExpires: { type: Number },
-	isEmailVerified: { type: Boolean ,default:false},
 }, { timestamps: true })
 
 module.exports = mongoose.model('Users', userSchema)
