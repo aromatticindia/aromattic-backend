@@ -14,6 +14,12 @@ const orderSchema = new mongoose.Schema(
     paymentDone: {
       type: Boolean,
     },
+    transactionId: {
+      type: String,
+    },
+    orderStatus: {
+      enum: ["PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"],
+    },
   },
   { timestamps: true }
 );

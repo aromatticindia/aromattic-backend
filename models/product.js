@@ -10,9 +10,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
+    category: {
       type: String,
       enum: ["MALE_CATEGORY", "FEMALE_CATEGORY", "UNISEX_CATEGORY"],
+      required: true,
+    },
+    type: {
+      type: String,
+      enum: ["eau_de_parfum", "eau_de_toilette", "eau_de_fraiche"],
       required: true,
     },
     description: {
@@ -28,6 +33,9 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     discountPercentage: {
+      type: Number,
+    },
+    discountedPrice: {
       type: Number,
       required: true,
     },

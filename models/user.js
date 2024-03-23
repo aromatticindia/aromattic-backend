@@ -22,7 +22,6 @@ const userSchema = new mongoose.Schema(
     googleId: {
       type: String,
     },
-    wishlist: [{ type: ObjectId, ref: "Products" }],
     orderHistory: [{ type: ObjectId, ref: "Orders" }],
   },
   { timestamps: true }
