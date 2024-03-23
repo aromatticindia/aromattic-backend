@@ -1,5 +1,6 @@
 const Products = require("../models/product");
 const slugify = require("slugify");
+const _ = require("lodash");
 
 //by admin
 exports.addProduct = (req, res) => {
