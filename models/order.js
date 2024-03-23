@@ -11,9 +11,6 @@ const orderSchema = new mongoose.Schema(
     orderDateTime: {
       type: String,
     },
-    paymentDone: {
-      type: Boolean,
-    },
     transactionId: {
       type: String,
     },

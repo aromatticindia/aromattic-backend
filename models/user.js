@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
     googleId: {
       type: String,
     },
-    orderHistory: [{ type: ObjectId, ref: "Orders" }],
+    // orderHistory: [{ type: ObjectId, ref: "Orders" }],
   },
   { timestamps: true }
 );
