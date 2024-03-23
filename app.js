@@ -16,6 +16,8 @@ mongoose.connect(
 const app = express();
 
 const productRoutes = require("./routes/product");
+const userRoutes = require("./routes/user");
+const orderRoutes = require("./routes/order");
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
@@ -23,6 +25,8 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use("/api", productRoutes);
+app.use("/api", userRoutes);
+app.use("/api", orderRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
