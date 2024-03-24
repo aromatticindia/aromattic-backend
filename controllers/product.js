@@ -28,7 +28,7 @@ exports.addProduct = (req, res) => {
   product.save((err, result) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       });
     } else {
       return res.status(201).json({ message: "Product added successfully" });
@@ -92,7 +92,7 @@ exports.searchProduct = (req, res) => {
       (err, result) => {
         if (err) {
           return res.status(400).json({
-            error: errorHandler(err),
+            error: err,
           });
         } else {
           return res.status(200).json({ data: result });
@@ -134,7 +134,7 @@ exports.removeProduct = (req, res) => {
   Products.findOneAndRemove({ slug }).exec((err, data) => {
     if (err) {
       return res.json({
-        error: errorHandler(err),
+        error: err,
       });
     }
     res.json({
@@ -150,7 +150,7 @@ exports.updateProduct = (req, res) => {
   Products.findOne({ slug }).exec((err, oldProduct) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       });
     }
 
@@ -162,7 +162,7 @@ exports.updateProduct = (req, res) => {
     oldProduct.save((err, result) => {
       if (err) {
         return res.status(400).json({
-          error: errorHandler(err),
+          error: err,
         });
       }
       res.json(result);
