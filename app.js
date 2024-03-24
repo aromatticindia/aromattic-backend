@@ -19,6 +19,7 @@ const productRoutes = require("./routes/product");
 const userRoutes = require("./routes/user");
 const orderRoutes = require("./routes/order");
 const blogRoutes = require("./routes/blog");
+const landingRoutes = require("./routes/landing");
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use("/api", productRoutes);
 app.use("/api", userRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", blogRoutes);
+app.use("/api", landingRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

@@ -1,5 +1,6 @@
 const Blogs = require("../models/blog");
 const slugify = require("slugify");
+const constants = require("../helpers/constants");
 
 exports.addBlog = (req, res) => {
   const { title, p1, p2, p3, date, imageLink1, imageLink2 } = req.body;
@@ -45,15 +46,21 @@ exports.viewBlog = (req, res) => {
 };
 
 exports.listAllBlogs = (req, res) => {
-  Blogs.find({}).exec((err, result) => {
-    if (err) {
-      return res.status(400).json({
-        error: err,
-      });
-    } else {
-      return res.status(200).json({ data: result });
-    }
-  });
+  Blogs.find({})
+    .sort({ createdAt: -1 })
+    .select("-imageLink2 -p2 -p3")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      } else {
+        return res.status(200).json({
+          title: constants.ALL_BLOGS_DISPLAY_PAGE_TITLE,
+          data: result,
+        });
+      }
+    });
 };
 
 //remove
