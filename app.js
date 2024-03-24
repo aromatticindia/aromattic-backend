@@ -18,6 +18,7 @@ const app = express();
 const productRoutes = require("./routes/product");
 const userRoutes = require("./routes/user");
 const orderRoutes = require("./routes/order");
+const blogRoutes = require("./routes/blog");
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
@@ -27,6 +28,7 @@ app.use(cors());
 app.use("/api", productRoutes);
 app.use("/api", userRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", blogRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
