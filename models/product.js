@@ -24,10 +24,15 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    imageLink: {
+    displayImageLink: {
       type: String,
       required: true,
     },
+    imageLinks: [
+      {
+        type: String,
+      },
+    ],
     originalPrice: {
       type: Number,
       required: true,

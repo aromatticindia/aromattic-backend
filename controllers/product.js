@@ -12,7 +12,8 @@ exports.addProduct = (req, res) => {
     originalPrice,
     discountedPrice,
     quantity,
-    imageLink,
+    imageLinks,
+    displayImageLink,
   } = req.body;
   let product = new Products();
   product.name = name;
@@ -22,8 +23,12 @@ exports.addProduct = (req, res) => {
   product.originalPrice = originalPrice;
   product.discountedPrice = discountedPrice;
   product.quantity = quantity;
-  product.imageLink = imageLink;
+  product.imageLinks = imageLinks;
+  product.displayImageLink = displayImageLink;
   product.slug = slugify(name).toLowerCase();
+  product.discountPercentage = Math.ceil(
+    ((originalPrice - discountedPrice) * 100) / originalPrice
+  );
 
   product.save((err, result) => {
     if (err) {
@@ -70,15 +75,17 @@ exports.viewProductAdmin = (req, res) => {
 
 //by user and admin
 exports.allProducts = (req, res) => {
-  Products.find({}).exec((err, result) => {
-    if (err) {
-      return res.status(400).json({
-        error: err,
-      });
-    } else {
-      return res.status(200).json({ data: result });
-    }
-  });
+  Products.find({})
+    .select("-imageLinks")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      } else {
+        return res.status(200).json({ data: result });
+      }
+    });
 };
 
 //by admin and user both
