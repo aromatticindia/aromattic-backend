@@ -14,6 +14,8 @@ exports.addProduct = (req, res) => {
     quantity,
     imageLinks,
     displayImageLink,
+    rating,
+    reviews,
   } = req.body;
   let product = new Products();
   product.name = name;
@@ -29,6 +31,8 @@ exports.addProduct = (req, res) => {
   product.discountPercentage = Math.ceil(
     ((originalPrice - discountedPrice) * 100) / originalPrice
   );
+  product.rating = rating;
+  product.reviews = reviews;
 
   product.save((err, result) => {
     if (err) {
