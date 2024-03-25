@@ -12,12 +12,12 @@ const productSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["MALE_CATEGORY", "FEMALE_CATEGORY", "UNISEX_CATEGORY"],
+      enum: ["MALE", "FEMALE", "UNISEX"],
       required: true,
     },
     type: {
       type: String,
-      enum: ["eau_de_parfum", "eau_de_toilette", "eau_de_fraiche"],
+      enum: ["EAU DE PARFUM", "EAU DE TOILETTE", "EAU DE FRAICHE"],
       required: true,
     },
     description: {
@@ -45,6 +45,14 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     quantity: {
+      type: Number,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+    },
+    reviews: {
       type: Number,
       required: true,
     },
