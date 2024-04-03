@@ -1,17 +1,27 @@
-const Blogs = require("../models/blog");
-const slugify = require("slugify");
-const constants = require("../helpers/constants");
+const Blogs = require('../models/blog');
+const slugify = require('slugify');
+const constants = require('../helpers/constants');
+const _ = require('lodash');
 
 exports.addBlog = (req, res) => {
-  const { title, p1, p2, p3, date, imageLink1, imageLink2 } = req.body;
+  const { title, p1, p2, p3, imageLink1, imageLink2 } = req.body;
+  const currentDate = new Date();
 
+  const options = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  };
+
+  const dateFormatter = new Intl.DateTimeFormat('en-US', options);
+  const formattedDate = dateFormatter.format(currentDate);
   const blog = new Blogs({
     title,
     slug: slugify(title).toLowerCase(),
     p1,
     p2,
     p3,
-    date,
+    date: formattedDate,
     imageLink1,
     imageLink2,
   });
@@ -22,7 +32,7 @@ exports.addBlog = (req, res) => {
       });
     }
     return res.json({
-      message: "Blog created successfully.",
+      message: 'Blog created successfully.',
     });
   });
 };
@@ -38,8 +48,7 @@ exports.viewBlog = (req, res) => {
       return res.status(200).json({ data: result });
     } else {
       return res.status(404).json({
-        message:
-          "We're sorry. The Web address you entered is not a functioning page on our site.",
+        message: "We're sorry. The Web address you entered is not a functioning page on our site.",
       });
     }
   });
@@ -48,7 +57,7 @@ exports.viewBlog = (req, res) => {
 exports.listAllBlogs = (req, res) => {
   Blogs.find({})
     .sort({ createdAt: -1 })
-    .select("-imageLink2 -p2 -p3")
+    .select('-imageLink2 -p2 -p3')
     .exec((err, result) => {
       if (err) {
         return res.status(400).json({
@@ -73,7 +82,7 @@ exports.removeBlog = (req, res) => {
       });
     }
     res.json({
-      message: "Blog deleted successfully",
+      message: 'Blog deleted successfully',
     });
   });
 };

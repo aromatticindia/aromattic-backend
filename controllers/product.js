@@ -1,6 +1,6 @@
-const Products = require("../models/product");
-const slugify = require("slugify");
-const _ = require("lodash");
+const Products = require('../models/product');
+const slugify = require('slugify');
+const _ = require('lodash');
 
 //by admin
 exports.addProduct = (req, res) => {
@@ -28,9 +28,7 @@ exports.addProduct = (req, res) => {
   product.imageLinks = imageLinks;
   product.displayImageLink = displayImageLink;
   product.slug = slugify(name).toLowerCase();
-  product.discountPercentage = Math.ceil(
-    ((originalPrice - discountedPrice) * 100) / originalPrice
-  );
+  product.discountPercentage = Math.ceil(((originalPrice - discountedPrice) * 100) / originalPrice);
   product.rating = rating;
   product.reviews = reviews;
 
@@ -40,7 +38,7 @@ exports.addProduct = (req, res) => {
         error: err,
       });
     } else {
-      return res.status(201).json({ message: "Product added successfully" });
+      return res.status(201).json({ message: 'Product added successfully' });
     }
   });
 };
@@ -57,8 +55,7 @@ exports.viewProduct = (req, res) => {
       return res.status(200).json({ data: result });
     } else {
       return res.status(404).json({
-        message:
-          "We're sorry. The Web address you entered is not a functioning page on our site.",
+        message: "We're sorry. The Web address you entered is not a functioning page on our site.",
       });
     }
   });
@@ -80,7 +77,7 @@ exports.viewProductAdmin = (req, res) => {
 //by user and admin
 exports.allProducts = (req, res) => {
   Products.find({})
-    .select("-imageLinks")
+    .select('-imageLinks')
     .exec((err, result) => {
       if (err) {
         return res.status(400).json({
@@ -98,7 +95,7 @@ exports.searchProduct = (req, res) => {
   if (search) {
     Products.find(
       {
-        $or: [{ name: { $regex: search, $options: "i" } }],
+        $or: [{ name: { $regex: search, $options: 'i' } }],
       },
       (err, result) => {
         if (err) {
@@ -108,7 +105,7 @@ exports.searchProduct = (req, res) => {
         } else {
           return res.status(200).json({ data: result });
         }
-      }
+      },
     );
   }
 };
@@ -141,15 +138,15 @@ exports.productsByCategory = (req, res) => {
 
 //remove
 exports.removeProduct = (req, res) => {
-  const slug = req.params.slug.toLowerCase();
-  Products.findOneAndRemove({ slug }).exec((err, data) => {
+  console.log('@Sama', req);
+  Products.findOneAndRemove({ _id: req.params.id }).exec((err, data) => {
     if (err) {
       return res.json({
         error: err,
       });
     }
     res.json({
-      message: "Product deleted successfully",
+      message: 'Product deleted successfully',
     });
   });
 };
